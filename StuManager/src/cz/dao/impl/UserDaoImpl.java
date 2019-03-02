@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import cz.dao.UserDao;
-import cz.util.JDBCUtil;
+import cz.util.JDBCUtil2;
 
 public class UserDaoImpl implements UserDao
 {
@@ -20,7 +20,7 @@ public class UserDaoImpl implements UserDao
 		try
 		{
 			// 1.得到连接对象
-			conn = JDBCUtil.getConnection();
+			conn = JDBCUtil2.getConnection();
 			
 			String sql = "select * from t_user where username=? and password=?";
 			
@@ -42,7 +42,7 @@ public class UserDaoImpl implements UserDao
 		}
 		finally
 		{
-			JDBCUtil.release(conn, rs, ps);
+			JDBCUtil2.release(conn, rs, ps);
 		}
 		
 		

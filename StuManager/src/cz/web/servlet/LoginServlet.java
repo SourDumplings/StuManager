@@ -1,18 +1,14 @@
 package cz.web.servlet;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import cz.dao.StuDao;
 import cz.dao.UserDao;
-import cz.dao.impl.StuDaoImpl;
 import cz.dao.impl.UserDaoImpl;
-import cz.entity.Student;
 
 /**
  * Servlet implementation class LoginServlet
@@ -54,17 +50,8 @@ public class LoginServlet extends HttpServlet
 		// 3.根据dao返回结果，做出响应
 		if (success)
 		{
-//			response.getWriter().write("登录成功！");
-			// 1.查询出来所有的学生信息
-			
-			StuDao stuDao = new StuDaoImpl();
-			List<Student> list = stuDao.findAll();
-			
-			// 2.先把这个集合存到服务器的Session作用域
-			request.getSession().setAttribute("list", list);
-			
-			// 3.重定向（用请求转发的话地址栏的地址不会变）
-			response.sendRedirect("stu_list.jsp");
+			// 重定向（用请求转发的话地址栏的地址不会变）
+			response.sendRedirect("index.jsp");
 		}
 		else
 		{
