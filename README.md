@@ -12,7 +12,7 @@ Web版学生管理系统
 | -------- | --------  |
 | admin | 123  |
 
-- stu表
+	- stu表
 
 | sid | sname | gender | phone | birthday | hobby | info | 
 | --- | ----- | ------ | ----- | -------- | ----- | ---- |
@@ -32,4 +32,5 @@ Web版学生管理系统
 
 ## 参考：
 [1]黑马程序员.JavaWeb2018-JSP&EL&JSTL
+
 [2]黑马程序员.JavaWeb2018-MVC设计模式
