@@ -6,13 +6,14 @@ Web版学生管理系统
 ## 功能简介
 - 使用MVC设计思想，实现了用户登录，增、删、改、模糊查询以及分页显示的功能
 - 使用前应该先在MySQL中建立名为stus的数据库，并建立用户表t_user和stu两张表，具体表项如下：
-	- t_user表
+
+t_user表：
 
 | username | password  |
 | -------- | --------  |
 | admin | 123  |
 
-	- stu表
+stu表：
 
 | sid | sname | gender | phone | birthday | hobby | info | 
 | --- | ----- | ------ | ----- | -------- | ----- | ---- |
