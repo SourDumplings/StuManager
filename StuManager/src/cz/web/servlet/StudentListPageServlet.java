@@ -2,20 +2,20 @@ package cz.web.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cz.entity.PageBean;
 import cz.entity.Student;
 import cz.service.impl.StudentServiceImpl;
 
 /**
- * Servlet implementation class SearchStudentServlet
+ * 这是用于分页显示学生列表的Servlet
  */
-public class SearchStudentServlet extends HttpServlet
+public class StudentListPageServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 
@@ -28,25 +28,29 @@ public class SearchStudentServlet extends HttpServlet
 		// TODO Auto-generated method stub
 		try
 		{
-			request.setCharacterEncoding("UTF-8");
-			
-			// 1.取到查询所需的关键数据：姓名、性别
-			String sname = request.getParameter("sname");
-			String gender = request.getParameter("gender");
-			
-			// 2.找service去查询
+			// 1.获取需要显示的页码数
+			int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+
+			// 2.根据指定的页数获取相应的数据
 			StudentServiceImpl service = new StudentServiceImpl();
-			List<Student> list = service.searchStudent(sname, gender);
-			request.setAttribute("list", list);
+			PageBean<Student> pageBean = service.findStudentByPage(currentPage);
 			
-			// 3.跳转界面
-			request.getRequestDispatcher("list.jsp").forward(request, response);
+			request.setAttribute("pageBean", pageBean);
+			
+			// 3.跳转页面
+			request.getRequestDispatcher("list_page.jsp").forward(request, response);
+		}
+		catch (NumberFormatException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	
 	}
 
 	/**

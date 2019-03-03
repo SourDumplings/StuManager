@@ -10,6 +10,7 @@ import javax.swing.plaf.TextUI;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import cz.dao.StudentDao;
 import cz.entity.Student;
@@ -26,6 +27,13 @@ import cz.util.TextUtil;
  */ 
 public class StudentDaoImpl implements StudentDao
 {
+	public List<Student> findStudentByPage(int currentPage) throws SQLException
+	{
+		QueryRunner runner = new QueryRunner(JDBCUtil2.getDataSource());
+		// 第一个问号：代表一页返回多少个记录，第二个问号：代表跳过前面多少条记录
+		return runner.query("select * from stu limit ? offset ?", new BeanListHandler<Student>(Student.class),
+				PAGE_SIZE, (currentPage - 1) * PAGE_SIZE);
+	}
 
 	/**   
 	 * <p>Title: findAll</p>   
@@ -124,6 +132,18 @@ public class StudentDaoImpl implements StudentDao
 		}*/
 		
 		return runner.query(sql, new BeanListHandler<Student>(Student.class), list.toArray());
+	}
+
+	public int findCount() throws SQLException
+	{
+		// TODO Auto-generated method stub
+		QueryRunner runner = new QueryRunner(JDBCUtil2.getDataSource());
+		
+		// 用于处理平均值、总的函数等
+		Long result = (Long)runner.query("select count(*) from stu", new ScalarHandler());
+		
+		
+		return result.intValue();
 	}
 	
 	

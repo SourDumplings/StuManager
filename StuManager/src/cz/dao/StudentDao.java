@@ -15,6 +15,19 @@ import cz.entity.Student;
  */ 
 public interface StudentDao
 {
+	int PAGE_SIZE = 5;
+	
+	/**   
+	 * @Title: findStudentByPage   
+	 * @Description: TODO(查询当页的学生数据)   
+	 * @param: @param currentPage
+	 * @param: @return
+	 * @param: @throws SQLException      
+	 * @return: List<Student>      
+	 * @throws   
+	 */  
+	List<Student> findStudentByPage(int currentPage) throws SQLException;
+	
 	/**   
 	 * @Title: findAll   
 	 * @Description: TODO(查询所有学生)   
@@ -76,4 +89,14 @@ public interface StudentDao
 	 * @throws   
 	 */  
 	void update(Student student) throws SQLException;
+	
+	/**   
+	 * @Title: findCount   
+	 * @Description: TODO(查询总的学生记录数)   
+	 * @param: @return
+	 * @param: @throws SQLException      
+	 * @return: int      
+	 * @throws   
+	 */  
+	int findCount() throws SQLException;
 }

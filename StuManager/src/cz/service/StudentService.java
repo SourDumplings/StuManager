@@ -3,6 +3,7 @@ package cz.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import cz.entity.PageBean;
 import cz.entity.Student;
 
 /**   
@@ -15,6 +16,17 @@ import cz.entity.Student;
  */ 
 public interface StudentService
 {
+	/**   
+	 * @Title: findStudentByPage   
+	 * @Description: TODO(查询当页的学生数据)   
+	 * @param: @param currentPage
+	 * @param: @return
+	 * @param: @throws SQLException      
+	 * @return: PageBean   
+	 * @throws   
+	 */  
+	PageBean<Student> findStudentByPage(int currentPage) throws SQLException;
+	
 	/**   
 	 * @Title: findAll   
 	 * @Description: TODO(查询所有学生)   
