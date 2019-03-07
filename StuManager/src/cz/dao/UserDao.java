@@ -1,5 +1,7 @@
 package cz.dao;
 
+import cz.entity.UserBean;
+
 /**   
  * @ClassName:  UserDao   
  * @Description:TODO(该dao定义了对用户表的访问规则)   
@@ -19,5 +21,5 @@ public interface UserDao
 	 * @throws   
 	 *
 	 */  
-	boolean login(String username, String password);
+	boolean login(UserBean user);
 }

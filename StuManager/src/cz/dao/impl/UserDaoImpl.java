@@ -6,11 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import cz.dao.UserDao;
+import cz.entity.UserBean;
 import cz.util.JDBCUtil2;
 
 public class UserDaoImpl implements UserDao
 {
-	public boolean login(String username, String password)
+	public boolean login(UserBean user)
 	{
 		// TODO Auto-generated method stub
 		Connection conn = null;
@@ -26,8 +27,8 @@ public class UserDaoImpl implements UserDao
 			
 			// 2.创建ps对象
 			ps = conn.prepareStatement(sql);
-			ps.setString(1, username);
-			ps.setString(2, password);
+			ps.setString(1, user.getUsername());
+			ps.setString(2, user.getPassword());
 			
 			// 3.开始执行
 			rs = ps.executeQuery();
