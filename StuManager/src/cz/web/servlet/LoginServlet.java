@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,21 +53,31 @@ public class LoginServlet extends HttpServlet
 			System.out.println("username:" + username + ", password:" + password);*/
 			Map<String, String[]> map = request.getParameterMap();
 			BeanUtils.populate(user, map);
+			
+			String auto_login = request.getParameter("auto_login");
 
 			// 2.去数据库访问有没有这个用户：去访问dao,看看是否满足登录
 			UserDao dao = new UserDaoImpl();
-			boolean success = dao.login(user);
-
+			UserBean userBean = dao.login(user);
+			
 			// 3.根据dao返回结果，做出响应
-			if (success)
+			if (userBean != null)
 			{
-				// 重定向（用请求转发的话地址栏的地址不会变）
-				request.getSession().setAttribute("user", user);
+				if (auto_login != null && auto_login.equals("on"))
+				{
+					// 页面提交上来的时候，是否选择了自动登录
+					Cookie cookie = new Cookie("auto_login", userBean.getUsername() + "#cz#" + userBean.getPassword());
+					cookie.setMaxAge(60 * 60); // 设置Cookie为1h有效期
+					response.addCookie(cookie);
+					cookie.setPath(request.getContextPath());
+				}
+				// 登录成功，进入首页
+				request.getSession().setAttribute("userBean", userBean);
 				response.sendRedirect("index.jsp");
 			}
 			else
 			{
-				response.getWriter().write("登录失败！用户名或者密码吗错误！");
+				response.getWriter().write("登录失败！用户名或者密码错误！");
 			}
 		}
 		catch (IllegalAccessException e)

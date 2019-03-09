@@ -8,11 +8,12 @@
 <title>首页</title>
 </head>
 <body>
-	<c:if test="${not empty user }">
+	<c:if test="${not empty userBean }">
+		<h2>欢迎您，${userBean.getUsername() }</h2>
 		<h3><a href="StudentListServlet">显示所有学生列表</a></h3><br>
 		<h3><a href="StudentListPageServlet?currentPage=1">分页显示所有学生</a></h3>
 	</c:if>
-	<c:if test="${empty user }">
+	<c:if test="${empty userBean }">
 		您好，请先<a href="login.jsp">登录</a>！
 	</c:if>	
 	

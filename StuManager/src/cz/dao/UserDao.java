@@ -21,5 +21,5 @@ public interface UserDao
 	 * @throws   
 	 *
 	 */  
-	boolean login(UserBean user);
+	UserBean login(UserBean user);
 }

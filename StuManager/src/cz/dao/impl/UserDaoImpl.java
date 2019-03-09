@@ -11,7 +11,7 @@ import cz.util.JDBCUtil2;
 
 public class UserDaoImpl implements UserDao
 {
-	public boolean login(UserBean user)
+	public UserBean login(UserBean user)
 	{
 		// TODO Auto-generated method stub
 		Connection conn = null;
@@ -34,7 +34,12 @@ public class UserDaoImpl implements UserDao
 			rs = ps.executeQuery();
 			
 			// 如果能够成功移到下一条记录，表明有这个用户，会返回true
-			return rs.next();
+			if (rs.next())
+			{
+				return user;
+			}
+			else
+				return null;
 		}
 		catch (SQLException e)
 		{
@@ -47,7 +52,7 @@ public class UserDaoImpl implements UserDao
 		}
 		
 		
-		return false;
+		return null;
 	}
 
 }
